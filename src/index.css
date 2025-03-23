@@ -8,9 +8,10 @@
     transparent 10%
   );
   background-size: 20px 20px;
-
+  color: var(--color-darkblue);
   --color-dark: #444b54;
-  --color-light: #d9dce1;
+  --color-light: rgb(217, 220, 225);
+  --color-light-opacity: rgba(217, 220, 225, 0.5);
   --color-blue: #7397c4;
   --color-darkblue: #244670;
   --font-main: "Tillana", system-ui;
