@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.title {
+  font-family: var(--font-main);
+  font-weight: 800;
+  font-size: 28px;
+  margin-bottom: 18px;
+  margin-left: 80px;
+}
