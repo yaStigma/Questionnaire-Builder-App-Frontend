@@ -1,6 +1,7 @@
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { createQuestionnaire } from "../../api/QuestionnaireRequests";
 import CSS from "./CreateQuizForm.module.css";
 const optionSchema = yup.object().shape({
   text: yup
@@ -63,6 +64,7 @@ export default function CreateQuizForm() {
     register,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validateSchema),
@@ -79,8 +81,14 @@ export default function CreateQuizForm() {
     remove,
   } = useFieldArray({ control, name: "questions" });
 
-  const onSubmit = (data) => {
-    console.log("Form Submitted:", data);
+  const onSubmit = async (data) => {
+    const result = await createQuestionnaire(data);
+    if (result) {
+      console.log("Questionnaire successfully created:", result);
+      reset();
+    } else {
+      console.error("Failed to create questionnaire");
+    }
   };
 
   return (
