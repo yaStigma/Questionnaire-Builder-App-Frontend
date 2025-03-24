@@ -5,9 +5,10 @@ import { updateQuestionnaire } from "../../api/QuestionnaireRequests";
 import CSS from "./EditQuizForm.module.css";
 import Loader from "../Loader/Loader";
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function EditeQuizForm({ quizData }) {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const {
     control,
     handleSubmit,
@@ -45,10 +46,11 @@ export default function EditeQuizForm({ quizData }) {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const result = await updateQuestionnaire(quizData._id, data); // вызываем API для обновления
+      const result = await updateQuestionnaire(quizData._id, data);
       if (result) {
         console.log("Questionnaire successfully updated:", result);
         setLoading(false);
+        navigate("/");
       } else {
         console.error("Failed to update questionnaire");
         setLoading(false);
