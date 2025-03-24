@@ -76,14 +76,14 @@ export default function CatalogList({ quiz, setQuiz }) {
           </div>
         </li>
       ))}
-      <li key="00" className={CSS.card}>
+      {/* <li key="00" className={CSS.card}>
         <div className={CSS.createBox}>
           <h2 className={CSS.name}>Create new Quiz</h2>
           <Link to="/quiz/create" className={CSS.createLink}>
             <img src="/plus.svg" alt="plus icon" className={CSS.plusIcon} />
           </Link>
         </div>
-      </li>
+      </li> */}
     </ul>
   );
 }

@@ -4,8 +4,10 @@ import CatalogList from "../../components/CatalogList/CatalogList";
 
 import CSS from "./CatalogPage.module.css";
 import Loader from "../../components/Loader/Loader";
+import Pagination from "../../components/Pagination/Pagination";
 export default function CatalogPage() {
   const [quiz, setQuiz] = useState([]);
+  const [paginatedQuiz, setPaginatedQuiz] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,6 +15,7 @@ export default function CatalogPage() {
       .then((data) => {
         if (data) {
           setQuiz(data);
+          setPaginatedQuiz(data.slice(0, 6));
         }
         setLoading(false);
       })
@@ -25,7 +28,8 @@ export default function CatalogPage() {
   return (
     <main className={CSS.wrapper}>
       <h1 className={CSS.title}>Questionnaire catalog</h1>
-      {loading ? <Loader /> : <CatalogList quiz={quiz} setQuiz={setQuiz} />}
+      {loading ? <Loader /> : <CatalogList quiz={paginatedQuiz} />}
+      <Pagination quiz={quiz} onPageChange={setPaginatedQuiz} />
     </main>
   );
 }
