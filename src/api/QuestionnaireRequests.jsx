@@ -43,3 +43,17 @@ export const createQuestionnaire = async ({
     return null;
   }
 };
+export const deleteQuestionnaire = async (id) => {
+  try {
+    const response = await axios.delete(`${baseURL}questionnaire/${id}`);
+    if (response.status === 204) {
+      console.log(`Questionnaire with ID ${id} deleted successfully.`);
+      return { success: true, message: "Deleted successfully" };
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting questionnaire:", error.message);
+    return { success: false, message: error.message };
+  }
+};

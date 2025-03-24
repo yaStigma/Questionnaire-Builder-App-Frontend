@@ -1,6 +1,18 @@
 import CSS from "./CatalogList.module.css";
-import { Link } from "react-router";
-export default function CatalogList({ quiz }) {
+import { Link } from "react-router-dom";
+import { deleteQuestionnaire } from "../../api/QuestionnaireRequests";
+export default function CatalogList({ quiz, setQuiz }) {
+  const handleDelete = async (id) => {
+    try {
+      const result = await deleteQuestionnaire(id);
+      if (result) {
+        setQuiz((prev) => prev.filter((q) => q._id !== id));
+      }
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  };
+
   return (
     <ul className={CSS.list}>
       {quiz.map((item, index) => (
@@ -24,6 +36,7 @@ export default function CatalogList({ quiz }) {
               type="button"
               title="Delete Quiz"
               className={CSS.actionsBtn}
+              onClick={() => handleDelete(item._id)}
             >
               <img
                 src="/delete.svg"

@@ -14,7 +14,7 @@ export default function CatalogPage() {
   return (
     <main className={CSS.wrapper}>
       <h1 className={CSS.title}>Questionnaire catalog</h1>
-      <CatalogList quiz={quiz} />
+      <CatalogList quiz={quiz} setQuiz={setQuiz} />
     </main>
   );
 }
