@@ -1,12 +1,12 @@
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validateSchema } from "../../validationSchemas/QuizFormValidation";
-import { createQuestionnaire } from "../../api/QuestionnaireRequests";
-import CSS from "./CreateQuizForm.module.css";
+import { updateQuestionnaire } from "../../api/QuestionnaireRequests";
+import CSS from "./EditQuizForm.module.css";
 import Loader from "../Loader/Loader";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function CreateQuizForm() {
+export default function EditeQuizForm({ quizData }) {
   const [loading, setLoading] = useState(false);
   const {
     control,
@@ -31,15 +31,30 @@ export default function CreateQuizForm() {
     remove,
   } = useFieldArray({ control, name: "questions" });
 
+  useEffect(() => {
+    if (quizData) {
+      reset({
+        quizName: quizData.quizName,
+        quizDescription: quizData.quizDescription,
+        questions: quizData.questions || [
+          { text: "", type: "text", options: [] },
+        ],
+      });
+    }
+  }, [quizData, reset]);
   const onSubmit = async (data) => {
     setLoading(true);
-    const result = await createQuestionnaire(data);
-    if (result) {
-      console.log("Questionnaire successfully created:", result);
-      reset();
-      setLoading(false);
-    } else {
-      console.error("Failed to create questionnaire");
+    try {
+      const result = await updateQuestionnaire(quizData._id, data); // вызываем API для обновления
+      if (result) {
+        console.log("Questionnaire successfully updated:", result);
+        setLoading(false);
+      } else {
+        console.error("Failed to update questionnaire");
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error updating questionnaire:", error);
       setLoading(false);
     }
   };

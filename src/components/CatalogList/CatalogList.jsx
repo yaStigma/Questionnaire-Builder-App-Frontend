@@ -51,20 +51,28 @@ export default function CatalogList({ quiz, setQuiz }) {
                 className={CSS.actionsIcon}
               />
             </button>
-            <button
-              type="button"
-              title="Correction Quiz"
-              className={CSS.actionsBtn}
-            >
-              <img
-                src="/correction.svg"
-                alt="correction icon"
-                className={CSS.actionsIcon}
-              />
-            </button>
-            <button type="button" title="RUN Quiz" className={CSS.actionsBtn}>
-              <img src="/run.svg" alt="run icon" className={CSS.actionsIcon} />
-            </button>
+            <Link to={`/edit/${item._id}`}>
+              <button
+                type="button"
+                title="Correction Quiz"
+                className={CSS.actionsBtn}
+              >
+                <img
+                  src="/correction.svg"
+                  alt="correction icon"
+                  className={CSS.actionsIcon}
+                />
+              </button>
+            </Link>
+            <Link to={`/quiz/${item._id}`}>
+              <button type="button" title="RUN Quiz" className={CSS.actionsBtn}>
+                <img
+                  src="/run.svg"
+                  alt="run icon"
+                  className={CSS.actionsIcon}
+                />
+              </button>
+            </Link>
           </div>
         </li>
       ))}

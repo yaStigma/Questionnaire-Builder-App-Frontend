@@ -43,6 +43,19 @@ export const createQuestionnaire = async ({
     return null;
   }
 };
+
+export const updateQuestionnaire = async (id, data) => {
+  try {
+    console.log(data);
+    const response = await axios.put(`${baseURL}questionnaire/${id}`, data);
+    console.log(response.data.data);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error updating questionnaire:", error);
+    return null;
+  }
+};
+
 export const deleteQuestionnaire = async (id) => {
   try {
     const response = await axios.delete(`${baseURL}questionnaire/${id}`);

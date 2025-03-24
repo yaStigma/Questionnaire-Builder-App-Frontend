@@ -17,7 +17,7 @@ export default function CatalogPage() {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Ошибка загрузки:", error);
+        console.error("Loading error:", error);
         setLoading(false);
       });
   }, []);
