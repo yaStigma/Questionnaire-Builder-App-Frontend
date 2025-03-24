@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import { Suspense } from "react";
-import Layout from "../layout/Layout";
+import Layout from "../Layout/Layout";
 import { Route, Routes } from "react-router";
 const CatalogPage = lazy(() => import("../../pages/CatalogPage/CatalogPage"));
 const BuilderPage = lazy(() => import("../../pages/BuilderPage/BuilderPage"));
