@@ -3,6 +3,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { createQuestionnaire } from "../../api/QuestionnaireRequests";
 import CSS from "./CreateQuizForm.module.css";
+import Loader from "../Loader/Loader";
+import { useState } from "react";
+
 const optionSchema = yup.object().shape({
   text: yup
     .string()
@@ -58,6 +61,7 @@ const validateSchema = yup.object().shape({
 });
 
 export default function CreateQuizForm() {
+  const [loading, setLoading] = useState(false);
   const {
     control,
     handleSubmit,
@@ -82,17 +86,21 @@ export default function CreateQuizForm() {
   } = useFieldArray({ control, name: "questions" });
 
   const onSubmit = async (data) => {
+    setLoading(true);
     const result = await createQuestionnaire(data);
     if (result) {
       console.log("Questionnaire successfully created:", result);
       reset();
+      setLoading(false);
     } else {
       console.error("Failed to create questionnaire");
+      setLoading(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={CSS.formWrapper}>
+      {loading && <Loader />}
       <div className={CSS.boxWrapper}>
         <div className={CSS.box}>
           <div className={CSS.boxLabel}>

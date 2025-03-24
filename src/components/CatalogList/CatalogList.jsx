@@ -1,20 +1,27 @@
 import CSS from "./CatalogList.module.css";
 import { Link } from "react-router-dom";
 import { deleteQuestionnaire } from "../../api/QuestionnaireRequests";
+import { useState } from "react";
+import Loader from "../Loader/Loader";
+
 export default function CatalogList({ quiz, setQuiz }) {
+  const [loading, setLoading] = useState(false);
   const handleDelete = async (id) => {
     try {
+      setLoading(true);
       const result = await deleteQuestionnaire(id);
       if (result) {
         setQuiz((prev) => prev.filter((q) => q._id !== id));
       }
+      setLoading(false);
     } catch (err) {
       console.error("Error:", err);
+      setLoading(false);
     }
   };
-
   return (
     <ul className={CSS.list}>
+      {loading && <Loader />}
       {quiz.map((item, index) => (
         <li key={index} className={CSS.card}>
           <div className={CSS.titleWraper}>
