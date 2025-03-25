@@ -33,11 +33,9 @@
   font-family: var(--font-main);
   font-weight: 600;
   font-size: 20px;
-  /* line-height: 1.5; */
   font-style: normal;
   color: var(--color-darkblue);
   padding: 0 10px;
-  /* width: 70px; */
   display: block;
   text-align: center;
 }
@@ -45,7 +43,6 @@
   border-radius: 10px;
   border-top: 3px solid var(--color-blue);
   border-bottom: 3px solid var(--color-blue);
-  /* text-decoration: underline overline var(--color-blue); */
 }
 .navigation {
   display: flex;
