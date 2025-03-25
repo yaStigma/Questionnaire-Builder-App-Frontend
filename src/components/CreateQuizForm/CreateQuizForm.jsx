@@ -1,6 +1,6 @@
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validateSchema } from "../../validationSchemas/QuizFormValidation";
+import { validateSchema } from "../../validationSchemas/CreateQuizFormValidation";
 import { createQuestionnaire } from "../../api/QuestionnaireRequests";
 import CSS from "./CreateQuizForm.module.css";
 import Loader from "../Loader/Loader";
@@ -110,7 +110,7 @@ export default function CreateQuizForm() {
                 </p>
                 {type === "single" || type === "multiple" ? (
                   <div>
-                    <p className={CSS.inputText}>Options:</p>
+                    <p className={CSS.inputText}>Answer options:</p>
                     <Controller
                       control={control}
                       name={`questions.${qIndex}.options`}
@@ -122,7 +122,7 @@ export default function CreateQuizForm() {
                                 {...register(
                                   `questions.${qIndex}.options.${optIndex}.text`
                                 )}
-                                placeholder="Option text"
+                                placeholder="Answer text"
                                 className={`${CSS.inputTextOption} ${CSS.input}`}
                               />
                               <button
@@ -155,7 +155,7 @@ export default function CreateQuizForm() {
                               ])
                             }
                           >
-                            Add Option
+                            Add choice
                           </button>
                         </>
                       )}
@@ -168,7 +168,7 @@ export default function CreateQuizForm() {
 
           <button
             type="button"
-            className={CSS.button}
+            className={`${CSS.textTitle} ${CSS.button} `}
             onClick={() => append({ text: "", type: "text", options: [] })}
           >
             Add Question

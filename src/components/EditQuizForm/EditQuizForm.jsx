@@ -1,6 +1,6 @@
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validateSchema } from "../../validationSchemas/QuizFormValidation";
+import { validateSchema } from "../../validationSchemas/CreateQuizFormValidation";
 import { updateQuestionnaire } from "../../api/QuestionnaireRequests";
 import CSS from "./EditQuizForm.module.css";
 import Loader from "../Loader/Loader";
@@ -45,20 +45,11 @@ export default function EditeQuizForm({ quizData }) {
   }, [quizData, reset]);
   const onSubmit = async (data) => {
     setLoading(true);
-    try {
-      const result = await updateQuestionnaire(quizData._id, data);
-      if (result) {
-        console.log("Questionnaire successfully updated:", result);
-        setLoading(false);
-        navigate("/");
-      } else {
-        console.error("Failed to update questionnaire");
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error("Error updating questionnaire:", error);
-      setLoading(false);
-    }
+    const result = await updateQuestionnaire(quizData._id, data);
+    console.log("Questionnaire successfully updated:", result);
+    setLoading(false);
+    alert(`Questionnaire successfully updated`);
+    navigate("/");
   };
 
   return (
@@ -127,7 +118,7 @@ export default function EditeQuizForm({ quizData }) {
                 </p>
                 {type === "single" || type === "multiple" ? (
                   <div>
-                    <p className={CSS.inputText}>Options:</p>
+                    <p className={CSS.inputText}>Answer options:</p>
                     <Controller
                       control={control}
                       name={`questions.${qIndex}.options`}
@@ -139,7 +130,7 @@ export default function EditeQuizForm({ quizData }) {
                                 {...register(
                                   `questions.${qIndex}.options.${optIndex}.text`
                                 )}
-                                placeholder="Option text"
+                                placeholder="Answer text"
                                 className={`${CSS.inputTextOption} ${CSS.input}`}
                               />
                               <button
@@ -172,7 +163,7 @@ export default function EditeQuizForm({ quizData }) {
                               ])
                             }
                           >
-                            Add Option
+                            Add choice
                           </button>
                         </>
                       )}
@@ -185,7 +176,7 @@ export default function EditeQuizForm({ quizData }) {
 
           <button
             type="button"
-            className={CSS.button}
+            className={`${CSS.textTitle} ${CSS.button} `}
             onClick={() => append({ text: "", type: "text", options: [] })}
           >
             Add Question
